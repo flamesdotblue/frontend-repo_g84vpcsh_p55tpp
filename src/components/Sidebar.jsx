@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Layers, Clock } from 'lucide-react';
+import { Home, Layers, Rocket, Star, BookOpen, LifeBuoy, ScrollText, Clock } from 'lucide-react';
 
 const NavItem = ({ icon: Icon, label, href, active }) => (
   <a
@@ -22,22 +22,24 @@ export default function Sidebar({ currentRoute }) {
       </div>
       <nav className="mt-4 grid gap-1">
         <NavItem icon={Home} label="Home" href="#/" active={currentRoute === '/'} />
-        <NavItem icon={Layers} label="Use Case" href="#/use-cases" active={currentRoute === '/use-cases'} />
+        <NavItem icon={Layers} label="Use Cases" href="#/use-cases" active={currentRoute === '/use-cases'} />
+        <NavItem icon={Star} label="Pricing" href="#/pricing" active={currentRoute === '/pricing'} />
+        <NavItem icon={Rocket} label="About" href="#/about" active={currentRoute === '/about'} />
+        <NavItem icon={BookOpen} label="Resources" href="#/resources" active={currentRoute === '/resources'} />
+        <NavItem icon={LifeBuoy} label="Support" href="#/support" active={currentRoute === '/support'} />
+        <NavItem icon={ScrollText} label="Legal" href="#/legal" active={currentRoute === '/legal'} />
+        <NavItem icon={Clock} label="Waitlist" href="#/waitlist" active={currentRoute === '/waitlist'} />
       </nav>
       <div className="mt-auto pt-4">
         <div className="px-2 text-xs uppercase tracking-wide text-white/60 mb-2">Early access</div>
-        <button
-          type="button"
-          className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-white/10 text-white hover:bg-white/20 transition-colors"
-          onClick={() => {
-            // Placeholder for future waitlist hookup
-            window.location.hash = '#/waitlist';
-          }}
+        <a
+          href="#/waitlist"
+          className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-white text-gray-900 hover:bg-white/90 transition-colors"
         >
           <Clock size={16} />
           <span className="text-sm">Join waitlist</span>
-        </button>
-        <p className="mt-2 px-2 text-[11px] text-white/50">Space reserved to connect your waitlist provider later.</p>
+        </a>
+        <p className="mt-2 px-2 text-[11px] text-white/50">Be first to try Aame when we open early access.</p>
       </div>
     </aside>
   );

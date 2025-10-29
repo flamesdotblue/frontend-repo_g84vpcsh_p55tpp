@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Shield, FileText, LineChart, BookOpen, GraduationCap, Building2, CheckCircle2, Youtube, Search, Globe, FileSearch } from 'lucide-react';
+import { ArrowRight, Shield, FileText, LineChart, BookOpen, GraduationCap, Building2, CheckCircle2, Youtube, Search, Globe, FileSearch, Linkedin } from 'lucide-react';
 import HeroSection from './HeroSection';
 
 function Section({ title, description, children }) {
@@ -321,6 +321,99 @@ function AboutPage() {
   );
 }
 
+function WaitlistPage() {
+  const [data, setData] = useState({ name: '', email: '', linkedin: '', role: 'professional' });
+  const [sent, setSent] = useState(false);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+  };
+
+  return (
+    <div className="grid lg:grid-cols-2 gap-6">
+      <div className="rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-6 sm:p-8">
+        <h2 className="text-2xl font-semibold text-white">Join the waitlist</h2>
+        <p className="mt-2 text-sm text-white/70">Be first to get access. We’ll notify you when we open early access.</p>
+
+        <form onSubmit={onSubmit} className="mt-6 grid gap-4">
+          <label className="grid gap-2">
+            <span className="text-sm text-white/80">Full name</span>
+            <input
+              className="h-11 rounded-md bg-white/10 border border-white/10 px-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/20"
+              placeholder="Alex Johnson"
+              value={data.name}
+              onChange={(e)=>setData({...data, name: e.target.value})}
+              required
+            />
+          </label>
+          <label className="grid gap-2">
+            <span className="text-sm text-white/80">Email</span>
+            <input
+              type="email"
+              className="h-11 rounded-md bg-white/10 border border-white/10 px-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/20"
+              placeholder="alex@company.com"
+              value={data.email}
+              onChange={(e)=>setData({...data, email: e.target.value})}
+              required
+            />
+          </label>
+          <label className="grid gap-2">
+            <span className="flex items-center gap-2 text-sm text-white/80"><Linkedin size={16}/> LinkedIn profile</span>
+            <input
+              type="url"
+              className="h-11 rounded-md bg-white/10 border border-white/10 px-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/20"
+              placeholder="https://www.linkedin.com/in/your-handle"
+              value={data.linkedin}
+              onChange={(e)=>setData({...data, linkedin: e.target.value})}
+              required
+            />
+          </label>
+
+          <label className="grid gap-2">
+            <span className="text-sm text-white/80">I am</span>
+            <div className="grid grid-cols-3 gap-2">
+              {['professional','students','enterprise'].map((role) => (
+                <button
+                  key={role}
+                  type="button"
+                  onClick={() => setData({...data, role})}
+                  className={`h-11 rounded-md border px-3 text-sm capitalize transition ${data.role===role ? 'bg-white text-gray-900 border-white' : 'bg-white/5 text-white/80 border-white/10 hover:bg-white/10'}`}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
+          </label>
+
+          <button
+            type="submit"
+            className="mt-2 inline-flex items-center justify-center gap-2 h-11 rounded-md bg-white text-gray-900 px-5 font-medium hover:bg-white/90"
+          >
+            Join waitlist
+          </button>
+
+          {sent && (
+            <div className="text-sm text-emerald-300">Thanks! You’re on the list. We’ll email you when we’re ready.</div>
+          )}
+        </form>
+      </div>
+
+      <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-8">
+        <h3 className="text-white text-lg font-semibold">Why join now?</h3>
+        <ul className="mt-3 space-y-2 text-sm text-white/80">
+          <li>Early access to role‑aligned learning paths</li>
+          <li>Influence product direction with feedback sessions</li>
+          <li>Founding member perks and pricing</li>
+        </ul>
+        <div className="mt-6 rounded-lg bg-gradient-to-r from-indigo-500/20 via-sky-500/20 to-purple-500/20 p-4 border border-white/10">
+          <p className="text-white/80 text-sm">Design language inspired by clean, airy layouts and subtle gradients — simple, accessible, and focused.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function MainContent() {
   const [route, setRoute] = useState('/');
 
@@ -363,11 +456,7 @@ export default function MainContent() {
       case '/about':
         return <AboutPage />;
       case '/waitlist':
-        return (
-          <Section title="Join the waitlist" description="We will notify you as soon as Aame is ready.">
-            <a href="mailto:connect@theaame.com?subject=Join%20the%20Aame%20waitlist" className="inline-flex items-center gap-2 rounded-md bg-white text-gray-900 px-4 py-2 font-medium hover:bg-white/90">Email us to join</a>
-          </Section>
-        );
+        return <WaitlistPage />;
       default:
         return <HomePage />;
     }
